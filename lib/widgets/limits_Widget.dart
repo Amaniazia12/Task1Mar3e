@@ -22,20 +22,34 @@ class LimitsWidget extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text("sita"+index),
-        TextField(
-          decoration: InputDecoration(labelText: 'Min'),
-          controller: minValControl,
-          onSubmitted: (_) => submitLimits(),
-        ),
-        TextField(
-          decoration: InputDecoration(labelText: 'Max'),
-          controller: maxValControl,
-          onSubmitted: (_) => submitLimits(),
-        ),
-      ],
+    return Container(
+      height: MediaQuery.of(context).size.height/6,
+      width: MediaQuery.of(context).size.width/6,
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:<Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("sita"+index),
+                ),
+                Container(
+                  width: 100,
+                  child: TextField(
+                    decoration: InputDecoration(labelText: 'Min'),
+                    controller: minValControl,
+                    onSubmitted: (_) => submitLimits(),
+                    ),
+                ),
+                Container(
+                  width:100,
+                  child: TextField(
+                    decoration: InputDecoration(labelText: 'Max'),
+                    controller: maxValControl,
+                    onSubmitted: (_) => submitLimits(),
+                        ),
+                     ),
+                    ],
+          )
     );
   }
 }
