@@ -1,17 +1,22 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-class LimitsWidget extends StatelessWidget {
+class LimitsWidget extends StatefulWidget {
  
-  final String index ;
-  final minList=[];
-  final maxList=[];
+  
+  @override
+  _LimitsWidgetState createState() => _LimitsWidgetState();
+}
+
+class _LimitsWidgetState extends State<LimitsWidget> {
+  static final minList=[];
+
+  static final maxList=[];
+
   final minValControl = TextEditingController();
+
   final maxValControl = TextEditingController();
-  LimitsWidget(
-    @required this.index
-    );
-  void submitLimits() {
+
+  void submitLimits(BuildContext context) {
     final minval = double.parse(minValControl.text);
     final maxval = double.parse(maxValControl.text);
     if ( minval < 0 || maxval <0 ) {
@@ -19,37 +24,56 @@ class LimitsWidget extends StatelessWidget {
     }
     minList.add(minval);
     maxList.add(maxval);
+   //Navigator.of(context).pop();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height/6,
-      width: MediaQuery.of(context).size.width/6,
+    return SingleChildScrollView(
+      child: Container (
+      padding: const EdgeInsets.all(15.0),
+      height: MediaQuery.of(context).size.height*0.13,
+      width: MediaQuery.of(context).size.width,
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:<Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("sita"+index),
-                ),
                 Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0),
+                        bottomLeft: Radius.circular(10.0),
+                        topLeft: Radius.circular(10.0)),
+                        color: Colors.grey[200]),
                   width: 100,
+                  height: 50,
                   child: TextField(
-                    decoration: InputDecoration(labelText: 'Min'),
+                    decoration: InputDecoration(labelText: '  min'),
+                    keyboardType: TextInputType.number,
                     controller: minValControl,
-                    onSubmitted: (_) => submitLimits(),
+                    onSubmitted: (_) => submitLimits(context),
                     ),
                 ),
                 Container(
+                   decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0),
+                        bottomLeft: Radius.circular(10.0),
+                        topLeft: Radius.circular(10.0)),
+                        color: Colors.grey[200]),
+                  height: 50,
                   width:100,
                   child: TextField(
-                    decoration: InputDecoration(labelText: 'Max'),
+                    decoration: InputDecoration(labelText: '  max'),
+                    keyboardType: TextInputType.number,
                     controller: maxValControl,
-                    onSubmitted: (_) => submitLimits(),
+                    onSubmitted: (_) => submitLimits(context),
                         ),
                      ),
                     ],
           )
-    );
+    )
+    ) ;
   }
 }

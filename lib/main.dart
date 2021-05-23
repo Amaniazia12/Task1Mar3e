@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:task1/screens/movementConfiguration_screen.dart';
 import 'package:task1/screens/setting_screen.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,36 +13,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.teal[400],
       ),
-      home: Setting_Screen(),
+      //title: "App Onborading",
+      home: AnimatedSplashScreen(
+          splash:Icons.tablet_mac_sharp,
+          backgroundColor:  Colors.teal[400],
+          nextScreen: Setting_Screen(),
+        ),
+      debugShowCheckedModeBanner:false,
+      routes: {
+        MovementConfigration_screen.routName:(ctx)=>MovementConfigration_screen(), 
+      }
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
 
-class _MyHomePageState extends State<MyHomePage> {
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Setting limits"),
-      ),
-      body: GridView(
-       gridDelegate: 
-        SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 3/2.5,
-          ),
-       //children: ,
-        //DUMMY_CATEGORIES.map((cItem) => CategoryIteam(cItem.id, cItem.title, cItem.color) 
-         // ).toList(),
-       ),
-    );
-  }
-}
+
