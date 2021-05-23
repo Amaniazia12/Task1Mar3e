@@ -93,7 +93,6 @@ class _Setting_ScreenState extends State<Setting_Screen> {
       height: MediaQuery.of(context).size.height*0.13,
       width: MediaQuery.of(context).size.width,
       child: new Row(
-        
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:<Widget>[
            Padding(

@@ -2,13 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MovementConfigration_screen extends StatefulWidget {
-  const MovementConfigration_screen({Key key}) : super(key: key);
+
   static final  routName = 'MovementConfigration_screen' ;
   @override
   _myhomeState createState() => _myhomeState();
 }
 
 class _myhomeState extends State<MovementConfigration_screen> {
+  
   final movControll = TextEditingController();
 
   static List<TextEditingController> ValControll = List.generate(5, (i) => TextEditingController()) ;
@@ -64,7 +65,8 @@ class _myhomeState extends State<MovementConfigration_screen> {
                 max:100,
                 min: 0,
                 value: val[index],
-                activeColor: Colors.tealAccent,
+                activeColor: Theme.of(context).primaryColor,
+                inactiveColor: Colors.grey,
                 label: '$val',
                 onChanged: (double newval)
                 {
@@ -82,19 +84,36 @@ class _myhomeState extends State<MovementConfigration_screen> {
    valueSeta(int index)
   {
     return Container(
+      padding: const EdgeInsets.all(2.0),
+      height: MediaQuery.of(context).size.height*0.05,
+      width: MediaQuery.of(context).size.width,
       child: new Row(
-         // mainAxisAlignment: MainAxisAlignment.,
         children:<Widget>[
-            Container(
-
-            child: Text("Value "+index.toString() + "  "),
-    ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row (
+              children: [
+              Container(
+              child:Image.asset('assets/images/theta.png')
+              ),
+              Text(" "+(index+1).toString()),
+              ]
+            ),
+        ),
        Container(
-        width:100,
+         padding: EdgeInsets.all(4),
+         decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(10.0),
+              bottomRight: Radius.circular(10.0),
+              bottomLeft: Radius.circular(10.0),
+              topLeft: Radius.circular(10.0)),
+              color: Colors.grey[200]),
+         width:100,
          child: TextField(
-          //decoration: InputDecoration(labelText: 'Min'),
-        controller: ValControll[index] ,
-        onSubmitted: (_) => submitLimits(index),
+          //decoration: InputDecoration(labelText: 'value'),
+          controller: ValControll[index] ,
+          onSubmitted: (_) => submitLimits(index),
   ),),
   ],),);
 
@@ -103,7 +122,9 @@ class _myhomeState extends State<MovementConfigration_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
      appBar: AppBar(title:Text("Monvment configuration")),
-      body: Container(
+      body: SingleChildScrollView (
+      child:
+      Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child:
@@ -123,6 +144,7 @@ class _myhomeState extends State<MovementConfigration_screen> {
             ),
           )
       ),
+    )
     );
   }
 }
