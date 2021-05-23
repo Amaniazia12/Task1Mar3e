@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class MovementConfigration_screen extends StatefulWidget {
 
   static final  routName = 'MovementConfigration_screen' ;
-  final List<double>  minList ;
-  final List<double> maxList;
+  final   minList ;
+  final  maxList;
   MovementConfigration_screen({this.minList,  this.maxList });
 
   @override
