@@ -54,12 +54,22 @@ class _myhomeState extends State<MovementConfigration_screen> {
   Items(int index)
   {
     return Container(
-        height: MediaQuery.of(context).size.height*0.13,
+        height: MediaQuery.of(context).size.height*0.15,
         width: MediaQuery.of(context).size.width,
       child: new Column(
 
           children:<Widget>[
           valueSeta(index),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   Text("min" , style: TextStyle(fontSize: 18,),),
+                   Text("max" , style: TextStyle(fontSize: 18,),),
+                ],
+              ),
+            ),
             Container(
               child: Slider(
                 max:100,
