@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         ),
       debugShowCheckedModeBanner:false,
       routes: {
-        MovementConfigration_screen.routName:(ctx)=>MovementConfigration_screen(), 
+        MovementConfigration_screen.routName:(ctx)=>MovementConfigration_screen(),
       }
     );
   }

@@ -13,18 +13,19 @@ class _Setting_ScreenState extends State<Setting_Screen> {
 
   static final maxList=[];
 
-  final minValControl = TextEditingController();
+  //final minValControl = TextEditingController();
+  static List<TextEditingController> minValControl = List.generate(10, (i) => TextEditingController()) ;
+  //final maxValControl = TextEditingController();
+  static List<TextEditingController> maxValControl = List.generate(10, (i) => TextEditingController()) ;
 
-  final maxValControl = TextEditingController();
-
-  void submitLimits(BuildContext context) {
-    final minval = double.parse(minValControl.text);
-    final maxval = double.parse(maxValControl.text);
-    if ( minval < 0 || maxval <0 ) {
-      return;
-    }
-    minList.add(minval);
-    maxList.add(maxval);
+  void submitLimits(BuildContext context,int index) {
+    //final minval = double.parse(minValControl[index].text);
+    //final maxval = double.parse(maxValControl[index].text);
+   // if ( minval < 0 || maxval <0 ) {
+    //  return;
+   // }
+    minList.add(double.parse(minValControl[index].text));
+    maxList.add(double.parse(maxValControl[index].text));
    
    //Navigator.of(context).pop();
   }
@@ -55,14 +56,16 @@ class _Setting_ScreenState extends State<Setting_Screen> {
             ListView .builder(
                shrinkWrap: true,
                itemBuilder: (ctx,index){ 
-                 return _LimitsWidget(context , index+1);
+                 return _LimitsWidget(context , index);
                  },
                itemCount: 5,),
            SizedBox(
               height:50
             ),    
            GestureDetector(  
-                onTap:()=>_nextScreen (context),
+                onTap:(){  Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return MovementConfigration_screen(maxList:maxList  , minList:minList);
+                }));},
                 child: Container(
                     padding: EdgeInsets.all(17),
                     decoration: BoxDecoration(
@@ -101,7 +104,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     children: [
                       Container(
                         child:Image.asset('assets/images/theta.png')),
-                      Text(" "+index.toString()),]
+                      Text(" "+(index+1).toString()),]
                       ),
                 ),
                 Container(
@@ -115,10 +118,10 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                   width: 100,
                   height: 50,
                   child: TextField(
-                    decoration: InputDecoration(labelText: '  min'),
+                    decoration: InputDecoration(labelText: ' min'),
                     keyboardType: TextInputType.number,
-                    controller: minValControl,
-                    onSubmitted: (_) => submitLimits(context),
+                    controller: minValControl[index],
+                    //onSubmitted: (_) => submitLimits(context,index),
                     ),
                 ),
                 Container(
@@ -134,8 +137,8 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                   child: TextField(
                     decoration: InputDecoration(labelText: '  max'),
                     keyboardType: TextInputType.number,
-                    controller: maxValControl,
-                    onSubmitted: (_) => submitLimits(context),
+                    controller: maxValControl[index],
+                    onSubmitted: (_) => submitLimits(context,index),
                         ),
                      ),
                     ],

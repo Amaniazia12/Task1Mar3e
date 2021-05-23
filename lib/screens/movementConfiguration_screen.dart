@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 class MovementConfigration_screen extends StatefulWidget {
 
   static final  routName = 'MovementConfigration_screen' ;
+  final List<double>  minList ;
+  final List<double> maxList;
+  MovementConfigration_screen({this.minList,  this.maxList });
+
   @override
   _myhomeState createState() => _myhomeState();
 }
 
 class _myhomeState extends State<MovementConfigration_screen> {
-  
+
   final movControll = TextEditingController();
 
-  static List<TextEditingController> ValControll = List.generate(5, (i) => TextEditingController()) ;
-   int index ;
-   static List<double> val =List.filled(5, 0.0) ;
+  static List<TextEditingController> ValControll = List.generate(10, (i) => TextEditingController()) ;
+   int index=0 ;
+   static List<double> val =List.filled(10, 100.0) ;
    bool putValue = false;
 
   void submitLimits(int index) {
@@ -45,6 +49,8 @@ class _myhomeState extends State<MovementConfigration_screen> {
           Container(
             width: 150,
             child: TextField(
+              decoration: InputDecoration(labelText: widget.minList[0].toString()),
+
               controller: movControll,
               //onSubmitted: (_) => submitLimits(),
             ),),
@@ -65,32 +71,35 @@ class _myhomeState extends State<MovementConfigration_screen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   Text("min" , style: TextStyle(fontSize: 18,),),
-                   Text("max" , style: TextStyle(fontSize: 18,),),
+                   Text(widget.minList[index].toString(), style: TextStyle(fontSize: 10,),),
+
+                  Expanded(
+                    child: Slider(
+                      max:widget.maxList[index],
+                      min: widget.minList[index],
+                      value: val[index],
+                      activeColor: Theme.of(context).primaryColor,
+                      inactiveColor: Colors.grey,
+
+                      onChanged: (double newval)
+                      {
+                        setState(() {
+                          val[index] = newval.roundToDouble()  ;
+                          ValControll[index].text=newval.toString();
+                        });
+                      },
+                    ),
+                  ),
+                   Text(widget.maxList[index].toString() , style: TextStyle(fontSize: 10,),),
                 ],
               ),
             ),
-            Container(
-              child: Slider(
-                max:100,
-                min: 0,
-                value: val[index],
-                activeColor: Theme.of(context).primaryColor,
-                inactiveColor: Colors.grey,
-                label: '$val',
-                onChanged: (double newval)
-                {
-                  setState(() {
-                    val[index] = newval.roundToDouble()  ;
-                    ValControll[index].text=newval.toString();
-                  });
-                },
-              ),
-            ),
+
         ],
       ),
     );
   }
+
    valueSeta(int index)
   {
     return Container(
@@ -121,7 +130,7 @@ class _myhomeState extends State<MovementConfigration_screen> {
               color: Colors.grey[200]),
          width:100,
          child: TextField(
-          //decoration: InputDecoration(labelText: 'value'),
+          decoration: InputDecoration(labelText: widget.maxList[1].toString()),
           controller: ValControll[index] ,
           onSubmitted: (_) => submitLimits(index),
   ),),
